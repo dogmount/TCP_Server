@@ -56,6 +56,15 @@
     <ClInclude Include="cellSemaphore.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="msgQueue.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="sendQueue.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="itemMsg.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

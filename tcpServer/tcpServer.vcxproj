@@ -163,6 +163,9 @@
     <ClInclude Include="cellThread.hpp" />
     <ClInclude Include="cellTime.hpp" />
     <ClInclude Include="clientEvent.hpp" />
+    <ClInclude Include="itemMsg.hpp" />
+    <ClInclude Include="msgQueue.hpp" />
+    <ClInclude Include="sendQueue.hpp" />
     <ClInclude Include="serConfig.hpp" />
     <ClInclude Include="cellServer.hpp" />
     <ClInclude Include="sqlCommand.hpp" />

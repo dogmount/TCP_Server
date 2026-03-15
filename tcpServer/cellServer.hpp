@@ -159,7 +159,6 @@ public:
 
 			////定时发送检测
 			//iter->second->checkSend(dt);
-
 			iter++;
 		}
 	}
@@ -218,7 +217,6 @@ public:
 		//printf("nLen=%d\n", nLen);
 		if (nLen <= 0)
 		{
-			//printf("客户端<Socket=%d>已退出，任务结束。\n", pclient->sockfd());
 			return -1;
 		}
 		//将收取到的数据拷贝到消息缓冲区
