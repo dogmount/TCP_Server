@@ -11,7 +11,7 @@ using json = nlohmann::json;
 //	用户数据
 struct user_data
 {
-	std::string uid;
+	int uid;
 	std::string uname;
 	std::string upassword;
 	std::string upicture;
@@ -20,8 +20,8 @@ struct user_data
 //	用户关系信息
 struct user_relation
 {
-	std::string f_user_id1;
-	std::string f_user_id2;
+	int f_user_id1;
+	int f_user_id2;
 
 	//	用户1给用户2的分组名和备注名
 	std::string f_teamname1;
@@ -35,8 +35,6 @@ struct user_relation
 //	文本聊天信息
 struct msg_text
 {
-	/*std::string f_senderid;
-	std::string f_targetid;*/
 	int f_senderid;
 	int f_targetid;
 	//std::string f_msgtype = "1";
