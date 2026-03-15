@@ -261,7 +261,7 @@ public:
 	//	验证登录信息
 	bool check_user(const user_data& udata)
 	{
-		std::string uid = udata.uid;
+		std::string uid = std::to_string(udata.uid);
 		std::string upassword = udata.upassword;
 		std::string sql = "select * from t_user where f_user_id =";
 		sql += uid;
@@ -319,7 +319,7 @@ public:
 			{
 				if ((sql_row = mysql_fetch_row(sql_res)) != NULL)
 				{
-					ud.uid = sql_row[1];
+					ud.uid = std::stoi(sql_row[1]);
 					ud.uname = sql_row[2];
 					ud.upassword = "";
 					ud.upicture = sql_row[4];
@@ -339,7 +339,7 @@ public:
 	//	添加用户
 	bool insert_user(const user_data& ud)
 	{
-		std::string uid = ud.uid;
+		std::string uid = std::to_string(ud.uid);
 		std::string uname = ud.uname;
 		std::string password = ud.upassword;
 		std::string cface = ud.upicture;
@@ -668,8 +668,8 @@ public:
 					user_relation urel;
 
 					// 从json对象中提取数据并赋值给结构体
-					urel.f_user_id1 = sql_row[1];
-					urel.f_user_id2 = sql_row[2];
+					urel.f_user_id1 = std::stoi(sql_row[1]);
+					urel.f_user_id2 = std::stoi(sql_row[2]);
 					urel.f_teamname1 = sql_row[3];
 					urel.f_markname1 = sql_row[4];
 					urel.f_teamname2 = sql_row[5];
@@ -689,8 +689,8 @@ public:
 	//	添加用户关系
 	bool insert_relation(const user_relation& rel)
 	{
-		std::string uid1 = rel.f_user_id1;
-		std::string uid2 = rel.f_user_id2;
+		std::string uid1 = std::to_string(rel.f_user_id1);
+		std::string uid2 = std::to_string(rel.f_user_id2);
 
 		std::string teamname1 = rel.f_teamname1;
 		std::string markname1 = rel.f_markname1;
@@ -785,8 +785,8 @@ public:
 	//	修改用户关系
 	bool update_relation(const user_relation& rel)
 	{
-		std::string uid1 = rel.f_user_id1;
-		std::string uid2 = rel.f_user_id2;
+		std::string uid1 = std::to_string(rel.f_user_id1);
+		std::string uid2 = std::to_string(rel.f_user_id2);
 
 		std::string teamname1 = rel.f_teamname1;
 		std::string markname1 = rel.f_markname1;
