@@ -15,7 +15,7 @@
 #include<unistd.h>				// uni std
 #include<sys/socket.h>			// socket(), connect()
 #include<netinet/in.h>			// sockaddr_in, htons()
-#include<arpa/inet.h>			//linux网络编程头文件
+#include<arpa/inet.h>			// linux网络编程头文件
 #include<string.h>
 
 #define SOCKET int

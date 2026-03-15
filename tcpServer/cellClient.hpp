@@ -51,14 +51,20 @@ public:
 		last_msgPos = pos;
 	}
 
-	std::string get_id()
+	int get_id()
 	{
 		return user_id;
 	}
 
-	void set_id(const std::string& uid)
+	void set_id(int uid)
 	{
 		user_id = uid;
+	}
+
+	//设置所属服务器id
+	void set_server_id(int id)
+	{
+		server_id = id;
 	}
 
 	//心跳检测
@@ -82,7 +88,9 @@ private:
 	SOCKET sock_fd;
 
 	//	客户端id
-	std::string user_id;
+	int user_id = -1;
+	//	服务器id
+	int server_id = -1;
 
 	//	第二缓冲区 消息缓冲区
 	char msg_buf[RECV_BUFF_SIZE * 10] = {};

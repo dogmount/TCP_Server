@@ -1,7 +1,6 @@
 #ifndef _CELL_SERVER_HPP_
 #define _CELL_SERVER_HPP_
 
-//#include"cellClient.hpp"
 #include"clientEvent.hpp"
 #include"cellThread.hpp"
 #include"cellTime.hpp"
@@ -69,8 +68,11 @@ public:
 				for (auto pclient : clients_buff)
 				{
 					clients_queue[pclient->sockfd()]= pclient;
+					pclient->set_server_id(cell_id);
 					if (cell_event)
+					{
 						cell_event->cJoin(pclient);
+					}
 				}
 				clients_buff.clear();
 				clients_change = true;
@@ -298,7 +300,6 @@ private:
 private:
 	//客户队列
 	std::map<SOCKET, cSocket*>clients_queue;
-
 	//缓冲客户队列
 	std::vector<cSocket*> clients_buff;
 	//缓冲队列锁
@@ -312,6 +313,7 @@ private:
 	SOCKET max_Sock;
 	//旧的时间戳
 	time_t old_Time = CELLTime::getNowInMilliSec();
+
 	//备份客户socket fd_set
 	fd_set _fdRead_bak;
 	//子服务器id
