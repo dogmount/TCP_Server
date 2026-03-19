@@ -5,13 +5,14 @@
 #include"cellThread.hpp"
 #include"sqlCommand.hpp"
 
-#include <random>
 #include <queue>
+#include <map>
+#include <random>
 #include <mutex>
 #include <condition_variable>
 
 // 消息队列（接收到的待处理消息）
-class MsgQueue {
+class MsgQueue :cell_msg_api {
 public:
     MsgQueue()
     {
@@ -31,13 +32,7 @@ public:
         delete _sql;
 	}
 
-    void push(const msgQueueItem& item) {
-        std::lock_guard<std::mutex> lock(msg_mutex);
-        msg_queue.push(item);
-        msg_cond.notify_one();
-    }
-
-    bool pop(msgQueueItem& item) {
+    bool pop(msgQueueItem* item) {
         std::unique_lock<std::mutex> lock(msg_mutex);
         msg_cond.wait(lock, [this] { return !msg_queue.empty() || msg_isrun; });
         if (msg_isrun) return false;
@@ -279,11 +274,31 @@ private:
         return j;
     }
 
+	virtual void cLeave(int cID)
+	{
+		std::lock_guard<std::mutex> lock(user_mutex);
+		if (clients_online.count(cID))
+		{
+			clients_online.erase(cID);
+		}
+	}
+
+	virtual void pushMsg(SOCKET cSock, const char* data, int len)
+	{
+		msgQueueItem* item = new msgQueueItem(cSock, data, len);
+		std::lock_guard<std::mutex> lock(msg_mutex);
+		msg_queue.push(item);
+		msg_cond.notify_one();
+	}
 private:
     conSql* _sql;
-    std::queue<msgQueueItem> msg_queue;
+    std::queue<msgQueueItem*> msg_queue;
     std::mutex msg_mutex;
     std::condition_variable msg_cond;
+
+	//在线用户表(用户ID,套接字)
+	std::map<int, SOCKET>clients_online;
+	std::mutex user_mutex;
 
     cellThread msg_thread;
     bool msg_isrun = false;

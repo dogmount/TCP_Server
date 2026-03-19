@@ -3,9 +3,10 @@
 
 #include"cellClient.hpp"
 #include"cellServer.hpp"
-#include"clientEvent.hpp"
+//#include"clientEvent.hpp"
 
-class TcpServer :public clientEvent
+//class TcpServer :public clientEvent
+class TcpServer
 {
 private:
 	//服务器线程
@@ -144,7 +145,7 @@ public:
 			cellServer* ser = new cellServer(n + 1);
 			_cellserver.push_back(ser);
 			//	重点！！！回调接口
-			ser->set_eventOBJ(this);
+			//ser->set_eventOBJ(this);
 			ser->cell_start();
 		}
 		_thread.Start(nullptr,
@@ -215,23 +216,5 @@ public:
 			}
 		}
 	}
-
-	//客户端加入事件
-	virtual void cJoin(cSocket* client)
-	{
-
-	}
-
-	//	客户端断连时
-	virtual void cLeave(cSocket* pclient)
-	{
-
-	}
-
-	virtual void pushMsg(SOCKET cSock, const char* data, int len)
-	{
-
-	}
-
 };
 #endif	//	_TcpServer_hpp_

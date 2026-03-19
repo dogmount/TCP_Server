@@ -1,10 +1,10 @@
 #ifndef _CELL_SERVER_HPP_
 #define _CELL_SERVER_HPP_
 
-#include"clientEvent.hpp"
+#include"itemMsg.hpp"
+#include"msgQueue.hpp"
 #include"cellThread.hpp"
 #include"cellTime.hpp"
-#include"msgHeader.hpp"
 
 #include<map>
 #include<vector>
@@ -51,7 +51,7 @@ public:
 		printf("CELLServer%d.Close end\n", cell_id);
 	}
 
-	void set_eventOBJ(clientEvent* event)
+	void set_eventOBJ(cell_msg_api* event)
 	{
 		cell_event = event;
 	}
@@ -69,10 +69,10 @@ public:
 				{
 					clients_queue[pclient->sockfd()]= pclient;
 					pclient->set_server_id(cell_id);
-					if (cell_event)
+					/*if (cell_event)
 					{
 						cell_event->cJoin(pclient);
-					}
+					}*/
 				}
 				clients_buff.clear();
 				clients_change = true;
@@ -145,10 +145,10 @@ public:
 			//心跳检测
 			if (iter->second->checkHeart(dt))
 			{
-				if (cell_event)
+				/*if (cell_event)
 				{
 					cell_event->cLeave(iter->second);
-				}
+				}*/
 				clients_change = true;
 				delete iter->second;
 				auto iterOld = iter;
@@ -167,7 +167,7 @@ public:
 	{
 		if (cell_event)
 		{
-			cell_event->cLeave(pclient);
+			cell_event->cLeave(pclient->get_id());
 		}
 		clients_change = true;
 		delete pclient;
@@ -305,8 +305,8 @@ private:
 
 	//子服务器线程
 	cellThread cell_thread;
-	//子服务器事件
-	clientEvent* cell_event;
+	//消息队列接口
+	cell_msg_api* cell_event;
 
 	SOCKET max_Sock;
 	//旧的时间戳
