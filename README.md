@@ -1,4 +1,4 @@
-tcp聊天服务器，改进中
+tcp聊天服务器，改进中---
 本个人项目使用select I/O模型，TCP网络协议实现
 头文件内容简述：
 1、通用类：cellThread（线程类）、cellTime（系统时间类）、cellSemaphore（信号量类）
